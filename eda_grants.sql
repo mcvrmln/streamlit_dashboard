@@ -78,6 +78,37 @@ create table vektisdata
     kosten_overige_prestaties_ggz number(20,2)
 );
 
+select * 
+from proefkeuken.brons.vektisdata
+limit 100;
+
+show grants to role loader;
+
+-- grants for useing 
+
+use role securityadmin;
+grant monitor on warehouse loader_wh to role engineer;
+revoke monitor on warehouse loader_wh from role engineer;
+grant monitor on database proefkeuken to role engineer;
+revoke monitor on database proefkeuken from role engineer;
+
+-- grant  GOVERNANCE_VIEWER to role engineer;
+-- revoke role GOVERNANCE_VIEWER to role engineer;
 
 
+use role engineer;
 
+select *
+from snowflake.account_usage.query_history
+where user_name ='LOADER'
+limit 100;
+
+select * 
+from snowflake.account_usage.copy_history
+limit 100;
+
+show views in schema snowflake.account_usage;
+
+select *
+from snowflake.READER_ACCOUNT_USAGE.QUERY_HISTORY
+limit 100;
